@@ -2,6 +2,7 @@
 // import { RouterLink, RouterView } from "vue-router";
 import {mapState} from "pinia";
 import {useAnimeStore} from "@/stores/animes.js";
+import CardAnime from "@/components/CardAnime.vue";
 import axios from "axios";
 
 // const animes = useAnimeStore();
@@ -10,9 +11,10 @@ export default {
   name: "HomePage",
   data() {
     return {
-      animes: undefined,
+      animes: undefined
     };
   },
+  components: {CardAnime},
   computed: {},
   beforeCreate() {
     const getData = async () => {
@@ -21,29 +23,19 @@ export default {
       return (this.animes = res.data.data);
     };
     getData();
-
-    // async getAnimesAction() {
-    //   this.listAnimes = await axios.get(
-    //     "https://kitsu.io/api/edge/trending/anime"
-    //   );
-    //   console.log(this.listAnimes.data);
-    //   return this.listAnimes.data;
-    // },
-  },
+  }
 };
 </script>
 
 <template>
   <h1>Listes D'animes</h1>
+  <div class="container">
 
-  <div v-for="anime in animes" :key=anime.id class="card" style="width: 18rem;">
-    <img :src="anime.attributes.coverImage.small"
-         alt="" class="card-img-top">
-    <div class="card-body">
-      <h5 class="card-title">{{ anime.attributes.canonicalTitle }}</h5>
-      <p class="card-text">{{ anime.attributes.description }}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+<!--    <div class="row">-->
+<!--      <div class="col-sm-6">-->
+        <CardAnime v-for="anime in animes" :key='anime.id' :anime='anime'/>
+<!--      </div>-->
+<!--    </div>-->
   </div>
 
 </template>
@@ -53,5 +45,14 @@ export default {
 //  width: 50%;
 //  display: flex;
 //}
+
+.container {
+  display: flex;
+  //flex-direction: column;
+  //justify-content: center;
+  //gap: 2rem;
+  //align-items: center;
+  //width: 100%;
+}
 
 </style>

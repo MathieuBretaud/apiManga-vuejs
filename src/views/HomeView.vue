@@ -1,7 +1,7 @@
 <script>
 // import { RouterLink, RouterView } from "vue-router";
-import { mapState } from "pinia";
-import { useAnimeStore } from "@/stores/animes.js";
+import {mapState} from "pinia";
+import {useAnimeStore} from "@/stores/animes.js";
 import axios from "axios";
 
 // const animes = useAnimeStore();
@@ -34,19 +34,24 @@ export default {
 </script>
 
 <template>
-  <h1>HOMEPAGE</h1>
-  <!-- <h2>{{ animes }}</h2> -->
-  <!-- <h4>{{ animes }}</h4> -->
+  <h1>Listes D'animes</h1>
 
-  <div v-for="anime in animes" :key=anime.id class="card">
-      <img
-        :src="anime.attributes.coverImage.small"
-      />
-      <!-- <div :style="{ backgroundImage: 'url(' + recipe.image + ')' }"></div> -->
-      <div>
-        <h2>{{ anime.id }}</h2>
-      </div>
+  <div v-for="anime in animes" :key=anime.id class="card" style="width: 18rem;">
+    <img :src="anime.attributes.coverImage.small"
+         alt="" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{ anime.attributes.canonicalTitle }}</h5>
+      <p class="card-text">{{ anime.attributes.description }}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+  </div>
+
 </template>
 
-<style scoped> </style>
+<style lang="scss" scoped>
+//img {
+//  width: 50%;
+//  display: flex;
+//}
+
+</style>

@@ -1,41 +1,56 @@
-<script>
+<script setup>
 // import { RouterLink, RouterView } from "vue-router";
-import {mapState} from "pinia";
-import {useAnimeStore} from "@/stores/animes.js";
-import CardAnime from "@/components/CardAnime.vue";
+import {ref, computed, onMounted} from "vue";
+import {useAnimesStore} from "@/stores/animes";
+
 import axios from "axios";
+import CardAnime from "@/components/CardAnime.vue";
+import {useMangasStore} from "@/stores/manga";
 
-// const animes = useAnimeStore();
+const storeAnimes = useAnimesStore();
+const getlistAnimes = computed(() => {
+  return storeAnimes.getListeAnimes;
+});
+onMounted(() => {
+  storeAnimes.getAnimesApiAction();
+});
 
-export default {
-  name: "HomePage",
-  data() {
-    return {
-      animes: undefined
-    };
-  },
-  components: {CardAnime},
-  computed: {},
-  beforeCreate() {
-    const getData = async () => {
-      const res = await axios.get("https://kitsu.io/api/edge/trending/anime");
-      console.log(res.data.data);
-      return (this.animes = res.data.data);
-    };
-    getData();
-  }
-};
+const storeMangas = useMangasStore();
+const getlistMangas = computed(() => {
+  return storeMangas.getListeMangas;
+});
+onMounted(() => {
+  storeMangas.getMangasApiAction();
+});
+
+
+// export default {
+//   name: "HomePage",
+//   data() {
+//     return {
+//       animes: undefined,
+//       mangas: undefined
+//     };
+//   },
+//   // components: {CardAnime},
+//
+// };
 </script>
 
 <template>
-  <h1>Listes D'animes</h1>
+  <h1 class="text-center mb-4">Listes d'animes</h1>
   <div class="container">
+    <!--    {{ storeAnimes.listAnimes }}-->
+    <div class="row">
+      <!--      <div class="col-4">-->
+      <CardAnime v-for="anime in storeAnimes.getListeAnimes" :key='anime.id' :anime='anime'/>
+      <h1 class="text-center mb-4">Listes des mangas</h1>
 
-<!--    <div class="row">-->
-<!--      <div class="col-sm-6">-->
-        <CardAnime v-for="anime in animes" :key='anime.id' :anime='anime'/>
-<!--      </div>-->
-<!--    </div>-->
+      <CardAnime v-for="manga in storeMangas.getListeMangas" :key='manga.id' :anime='manga'/>
+
+    </div>
+    <!--    </div>-->
+
   </div>
 
 </template>
@@ -47,12 +62,12 @@ export default {
 //}
 
 .container {
-  display: flex;
+  //display: flex;
   //flex-direction: column;
   //justify-content: center;
   //gap: 2rem;
   //align-items: center;
-  //width: 100%;
+  width: 100%;
 }
 
 </style>

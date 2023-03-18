@@ -4,7 +4,7 @@ import axios from "axios";
 export const useAnimesStore = defineStore("animes", {
     state: () => ({
         listAnimes: [],
-        recipe: undefined
+        view: undefined
     }),
 
     getters: {
@@ -16,8 +16,8 @@ export const useAnimesStore = defineStore("animes", {
             return (animeId) => state.listAnimes.find((anime) => anime.id === animeId)
         },
         getOneAnimeById: (state) => (id) =>{
-            console.log(state.listAnimes.find(r => r.id));
-            return state.listAnimes.find(r => r.id)
+            // console.log(state.listAnimes.find((r) => r.id === id), 'je suis bloqué');
+            return state.listAnimes.find(r => r.id === id)
         },
         getUserById: (state) => (userId) => {
             return  state.getListeAnimes.find((user) => user.id === userId)
@@ -39,8 +39,8 @@ export const useAnimesStore = defineStore("animes", {
         async getOneAnimeAction(animeId) {
 
             // on peut faire une vérification pour éviter d'envoyer une requette si la donnée complète existe déjà
-            this.recipe = this.getOneAnimeById(animeId);
-            console.log(this.recipe, 'je suis recipe');
+            this.view = this.getOneAnimeById(animeId);
+            console.log(this.view, 'je suis recipe');
             // en revanche si on a déjà récupéré les détails de cette recette et qu'entre temps un nouveau commentaire y a été ajouté, on ne le verra jamais affiché car on ira jamais re récupérer les détails de cette recette
             // if (!this.recipe) {
             //     const res = await axios.get("https://kitsu.io/api/edge/anime/" + animeId);

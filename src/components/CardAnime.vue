@@ -13,17 +13,19 @@ export default {
 <template>
 
   <div class="col-3">
-    <div class="card" style="">
-      <img :src="anime.attributes.posterImage.small"
-           alt="" class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title text-center">{{ anime.attributes.canonicalTitle }}</h5>
-<!--        <p class="card-text">{{ anime.attributes.description }}</p>-->
-<!--        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+    <RouterLink :to="{ name: 'view', params: { id: anime.id } }">
+      <div class="card" style="">
+        <img :src="anime.attributes.posterImage.small"
+             alt="" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ anime.attributes.canonicalTitle }}</h5>
+          <!--        <p class="card-text">{{ anime.attributes.description }}</p>-->
+          <!--        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+        </div>
       </div>
-    </div>
+    </RouterLink>
+
   </div>
-  <!--  </RouterLink>-->
 </template>
 
 <style lang="scss" scoped>
